@@ -17,14 +17,20 @@ io.on('connection', socket => {
         delete socketPool[socket.id.toString()];
         console.log('Socket', socket.id, 'disconnected');
     });
-
-    socket.on('message', function(data) {
-        let sockets = Object.keys(socketPool);
-        sockets.forEach(val => {
-            socketPool[val].emit('read message', data);
-        });
-    });
+    
 });
+        setInterval(() => {
+            const temp = Math.floor(Math.random() * 100);
+            const topic = 'temperature';
+            console.info(`TEMP : ${temp}`);
+            io.emit(topic, temp);
+        }, 10000);
+        setInterval(() => {
+            const precip = Math.random() >= 0.5;
+            const topic = 'precipitation';
+            console.info(`Precipitation : ${precip}`);
+            io.emit(topic, precip);
+        }, 10000);
 
 const listenCb = () =>
     console.table([
