@@ -2,8 +2,9 @@ const app = require('express')();
 const server = require('http').createServer(app);
 const socket = require('socket.io');
 const io = socket(server);
+require('dotenv').config();
 
-const port = 3005 || process.env.PORT;
+const port = process.env.PORT;
 
 let socketPool = {};
 
